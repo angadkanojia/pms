@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../../app/globals.css";
+import { Inter, Quicksand } from "next/font/google";
+import "../app/globals.css";
 
 // Use Inter instead of Geist
 const inter = Inter({
