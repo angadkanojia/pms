@@ -9,12 +9,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "please enter 6 digits"),
+  email: z.string() .min(1, "Please enter an email").email("Invalid email address"),
 });
 type User = z.infer<typeof schema>;
 
-const LoginForm = () => {
+const Page = () => {
   const router = useRouter();
   const {
     register,
@@ -27,19 +26,16 @@ const LoginForm = () => {
 
   const onSubmit = async (formData: User) => {
     try {
-      const response = await axios.post("/api/login", formData);
+      const response = await axios.post("/api/forgot-password", formData);
 
-      if (response.status !== 200) {
+      if (response.status === 200) {
+        router.push("/check-your-email");
+      } else {
         setError("email", {
           type: "manual",
-          message: "Invalid email or password",
-        });
-        setError("password", {
-          type: "manual",
-          message: "Invalid email or password",
+          message: "Invalid email",
         });
       }
-      router.push("/dashboard");
     } catch (error: any) {
       console.error("Login error:", error);
 
@@ -48,7 +44,6 @@ const LoginForm = () => {
         error.response?.data?.message || "Something went wrong";
 
       setError("email", { type: "manual", message: errorMessage });
-      setError("password", { type: "manual", message: errorMessage });
     }
   };
 
@@ -59,8 +54,10 @@ const LoginForm = () => {
         style={{ backgroundImage: "url('/images/login_left_side_image.png')" }}
       >
         <div className="text-center px-20">
-          <h1 className="font-bold text-5xl mb-5">Welcome</h1>
-          <p className="text-2xl">To Keep Connected with Us Please Login</p>
+          <h1 className="font-bold text-5xl mb-5">
+            One click to reset password.
+          </h1>
+          <p className="text-2xl">We’ll send a link to reset your password.</p>
         </div>
       </div>
 
@@ -68,27 +65,32 @@ const LoginForm = () => {
         <div className="w-full max-w-md p-8 mx-auto rounded-xl">
           <div className="mx-auto mb-10">
             <Image
-              src={"/images/login_form_top_image.png"}
+              src={"/images/forgotPassword.png"}
               alt="login image"
-              width={100}
+              width={170}
               height={200}
               className="mx-auto"
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-center mb-6 text-primary">
-            Login
+          <h2 className="text-2xl font-bold text-center mb-3 text-primary">
+            Forgot Password
+          </h2>
+          <h2 className="text-sm text-center mb-6 text-black">
+            Enter Your Email Address.
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-bold">Email</label>
+            <div className="mb-11">
+              <label className="block text-gray-700 font-bold mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
-                className={`w-full px-4 py-2 border rounded-md outline-none text-black ${
+                className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
                   errors.email ? "border-red-700" : "border-inherit"
                 }`}
-                placeholder="Enter your email"
+                placeholder="Enter Email Address"
                 {...register("email")}
               />
               {errors.email && (
@@ -98,7 +100,7 @@ const LoginForm = () => {
               )}
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 font-bold">Password</label>
               <input
                 type="password"
@@ -113,16 +115,21 @@ const LoginForm = () => {
                   {errors.password.message}
                 </span>
               )}
-            </div>
-              <div className="flex justify-end mb-2">
-            <Link href="/forgot-password" className="text-black font-semibold text-sm text-left" >Forgot Password?</Link>
-              </div>
-            <button
+            </div> */}
+            <div className="flex flex-col gap-4">
+              <button
               type="submit"
-              className="w-full font-bold bg-primary text-white py-2 rounded-md"
-            >
-              {isSubmitting ? "Logging in..." : "Login"}
-            </button>
+                className="w-full font-bold bg-primary text-white py-2 rounded-md text-center"
+              >
+                {isSubmitting ? "Wait.." : "Continue"}
+              </button>
+              <Link
+                href="/"
+                className="w-full font-bold bg-gray-300 text-blue-500 py-2 rounded-md text-center"
+              >
+                Back To Login
+              </Link>
+            </div>
           </form>
         </div>
       </div>
@@ -130,4 +137,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Page;
