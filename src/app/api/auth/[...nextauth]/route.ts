@@ -1,8 +1,8 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
-
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../lib/prisma"; // Ensure correct import path
+import bcrypt from "bcryptjs"; // Import bcryptjs for password hashing
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -28,14 +28,18 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user) {
-          throw new Error("Invalid email or password");
+          throw new Error("Email is not registered.");
         }
 
-        if (credentials.password !== user.password) {
-          throw new Error("Invalid email or password");
+        // Compare hashed password with entered password
+        const isValidPassword = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+        if (!isValidPassword) {
+          throw new Error("Incorrect password.");
         }
 
-        // Return user object **without password**
         return {
           id: user.id.toString(),
           email: user.email,
@@ -52,10 +56,13 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id; // Ensure session.user.id exists
-      }
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id, // Ensure session.user.id exists
+        },
+      };
     },
   },
   pages: {

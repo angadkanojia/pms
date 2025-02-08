@@ -22,7 +22,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(schema),
   });
@@ -37,10 +37,19 @@ const LoginForm = () => {
       password: formData.password,
     });
 
+    setLoading(false);
+
     if (result?.error) {
-      setError("email", { type: "manual", message: result.error });
-      setError("password", { type: "manual", message: result.error });
-      setLoading(false);
+      if (result.error.includes("Email")) {
+        setError("email", { type: "manual", message: result.error });
+      } else if (result.error.includes("password")) {
+        setError("password", { type: "manual", message: result.error });
+      } else {
+        setError("email", {
+          type: "manual",
+          message: "Login failed. Try again.",
+        });
+      }
       return;
     }
 
