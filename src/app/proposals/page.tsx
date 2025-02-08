@@ -1,5 +1,5 @@
 import React from "react";
-import Proposals from "./components/Proposals";
+import Proposals from "./_components/Proposals";
 
 const page = () => {
   return (
