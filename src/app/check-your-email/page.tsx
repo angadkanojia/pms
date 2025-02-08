@@ -1,50 +1,6 @@
-"use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const schema = z.object({
-  email: z.string().email("Invalid email address"),
-});
-type User = z.infer<typeof schema>;
 
 const Page = () => {
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<User>({
-    resolver: zodResolver(schema),
-  });
-
-  const onSubmit = async (formData: User) => {
-    try {
-      const response = await axios.post("/api", formData);
-
-      if (response.status !== 200) {
-        setError("email", {
-          type: "manual",
-          message: "Invalid email",
-        });
-      }
-      router.push("/dashboard");
-    } catch (error: any) {
-      console.error("Login error:", error);
-
-      // Extract error message from API response
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong";
-
-      setError("email", { type: "manual", message: errorMessage });
-    }
-  };
 
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-2">
