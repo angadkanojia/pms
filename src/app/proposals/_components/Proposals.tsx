@@ -2,7 +2,7 @@ import ProposalCard from "./ProposalCard";
 
 const Proposals = () => {
   return (
-    <div className="p-6">
+    <div className="p-5">
     <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 shadow-md rounded-md py-5 px-10 ">
       <h1 className="text-2xl font-bold">Proposals</h1>
       <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
