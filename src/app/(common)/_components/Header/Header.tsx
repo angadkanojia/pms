@@ -7,7 +7,7 @@ const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
       {/* Toggle Button */}
       <button
         onClick={toggleSidebar}
-        className="text-2xl bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded"
+        className="text-2xl bg-primary hover:bg-blue-600 text-white px-3 py-2 rounded"
       >
        &lt;&lt;
       </button>

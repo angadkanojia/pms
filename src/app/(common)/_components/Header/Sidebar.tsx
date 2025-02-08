@@ -59,7 +59,7 @@ const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
     >
       {/* LOGO */}
       <div
-        className={`text-4xl font-bold mb-1 mt-5 text-center text-blue-600 transition-all px-4 py-3 ${
+        className={`text-4xl font-bold mb-1 mt-5 text-center text-primary transition-all px-4 py-3 ${
           isCollapsed ? "text-center" : "text-left"
         }`}
       >
@@ -70,7 +70,7 @@ const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
 
       {/* Navigation */}
       <nav>
-        <ul className="space-y-3 mt-5">
+        <ul className="space-y-3 mt-5 px-3">
           {menuItems.map((item) => (
             <li key={item.title}>
               <Link
