@@ -1,16 +1,18 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Image from "next/image";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Image from "next/image";
+import { useState } from "react";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "please enter 6 digits"),
+  password: z.string().min(6, "Please enter at least 6 characters"),
 });
+
 type User = z.infer<typeof schema>;
 
 const LoginForm = () => {
@@ -24,31 +26,24 @@ const LoginForm = () => {
     resolver: zodResolver(schema),
   });
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (formData: User) => {
-    try {
-      const response = await axios.post("/api/login", formData);
+    setLoading(true);
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    });
 
-      if (response.status !== 200) {
-        setError("email", {
-          type: "manual",
-          message: "Invalid email or password",
-        });
-        setError("password", {
-          type: "manual",
-          message: "Invalid email or password",
-        });
-      }
-      router.push("/dashboard");
-    } catch (error: any) {
-      console.error("Login error:", error);
-
-      // Extract error message from API response
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong";
-
-      setError("email", { type: "manual", message: errorMessage });
-      setError("password", { type: "manual", message: errorMessage });
+    if (result?.error) {
+      setError("email", { type: "manual", message: result.error });
+      setError("password", { type: "manual", message: result.error });
+      setLoading(false);
+      return;
     }
+
+    router.push("/dashboard");
   };
 
   return (
@@ -117,8 +112,9 @@ const LoginForm = () => {
             <button
               type="submit"
               className="w-full font-bold bg-primary text-white py-2 rounded-md"
+              disabled={loading}
             >
-              {isSubmitting ? "Logging in..." : "Login"}
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
         </div>
