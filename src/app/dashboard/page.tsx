@@ -1,26 +1,11 @@
-"use client";
-import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import React from 'react'
 
-const page = ({ children }: { children: React.ReactNode }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
+const page = () => {
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <Sidebar isCollapsed={isCollapsed} />
-
-      {/* Main Content */}
-      <div className="flex-1">
-        {/* Header */}
-        <Header toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
-
-        {/* Page Content */}
-        <main className="p-4">{children}</main>
-      </div>
+    <div>
+      dashbaord
     </div>
-  );
-};
+  )
+}
 
 export default page
