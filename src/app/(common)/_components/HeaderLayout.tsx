@@ -1,11 +1,9 @@
-
 "use client";
 import React, { useState } from "react";
 import Sidebar from "./Header/Sidebar";
 import Header from "./Header/Header";
 
-
-const PageLayout = ({ children }: { children: React.ReactNode }) => {
+const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
@@ -19,10 +17,9 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
         <Header toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
         {/* Page Content */}
         <main>{children}</main>
-       
       </div>
     </div>
   );
 };
 
-export default PageLayout
+export default HeaderLayout;
