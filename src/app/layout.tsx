@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Quicksand } from "next/font/google";
 import "../app/globals.css";
+import PageLayout from "@/common/_components/layout/PageLayout";
 
 // Use Inter instead of Geist
 const inter = Inter({
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} antialiased`}><PageLayout>
+        {children}
+      </PageLayout></body>
     </html>
   );
 }
