@@ -1,22 +1,19 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from "next/image";
-import { useState } from "react";
-import Link from "next/link";
 
 const schema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Please enter at least 6 characters"),
+  email: z.string() .min(1, "Please enter an email").email("Invalid email address"),
 });
-
 type User = z.infer<typeof schema>;
 
-const LoginForm = () => {
+const Page = () => {
   const router = useRouter();
   const {
     register,
@@ -27,24 +24,27 @@ const LoginForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const [loading, setLoading] = useState(false);
-
   const onSubmit = async (formData: User) => {
-    setLoading(true);
-    const result = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const response = await axios.post("/api/forgot-password", formData);
 
-    if (result?.error) {
-      setError("email", { type: "manual", message: result.error });
-      setError("password", { type: "manual", message: result.error });
-      setLoading(false);
-      return;
+      if (response.status === 200) {
+        router.push("/check-your-email");
+      } else {
+        setError("email", {
+          type: "manual",
+          message: "Invalid email",
+        });
+      }
+    } catch (error: any) {
+      console.error("Login error:", error);
+
+      // Extract error message from API response
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong";
+
+      setError("email", { type: "manual", message: errorMessage });
     }
-
-    router.push("/dashboard");
   };
 
   return (
@@ -54,8 +54,10 @@ const LoginForm = () => {
         style={{ backgroundImage: "url('/images/login_left_side_image.png')" }}
       >
         <div className="text-center px-20">
-          <h1 className="font-bold text-5xl mb-5">Welcome</h1>
-          <p className="text-2xl">To Keep Connected with Us Please Login</p>
+          <h1 className="font-bold text-5xl mb-5">
+            One click to reset password.
+          </h1>
+          <p className="text-2xl">We’ll send a link to reset your password.</p>
         </div>
       </div>
 
@@ -63,27 +65,32 @@ const LoginForm = () => {
         <div className="w-full max-w-md p-8 mx-auto rounded-xl">
           <div className="mx-auto mb-10">
             <Image
-              src={"/images/login_form_top_image.png"}
+              src={"/images/forgotPassword.png"}
               alt="login image"
-              width={100}
+              width={170}
               height={200}
               className="mx-auto"
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-center mb-6 text-primary">
-            Login
+          <h2 className="text-2xl font-bold text-center mb-3 text-primary">
+            Forgot Password
+          </h2>
+          <h2 className="text-sm text-center mb-6 text-black">
+            Enter Your Email Address.
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-bold">Email</label>
+            <div className="mb-11">
+              <label className="block text-gray-700 font-bold mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
-                className={`w-full px-4 py-2 border rounded-md outline-none text-black ${
+                className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
                   errors.email ? "border-red-700" : "border-inherit"
                 }`}
-                placeholder="Enter your email"
+                placeholder="Enter Email Address"
                 {...register("email")}
               />
               {errors.email && (
@@ -93,7 +100,7 @@ const LoginForm = () => {
               )}
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 font-bold">Password</label>
               <input
                 type="password"
@@ -108,22 +115,21 @@ const LoginForm = () => {
                   {errors.password.message}
                 </span>
               )}
-            </div>
-            <div className="flex justify-end mb-2">
-              <Link
-                href="/forgot-password"
-                className="text-black font-semibold text-sm text-left"
+            </div> */}
+            <div className="flex flex-col gap-4">
+              <button
+              type="submit"
+                className="w-full font-bold bg-primary text-white py-2 rounded-md text-center"
               >
-                Forgot Password?
+                {isSubmitting ? "Wait.." : "Continue"}
+              </button>
+              <Link
+                href="/"
+                className="w-full font-bold bg-gray-300 text-blue-500 py-2 rounded-md text-center"
+              >
+                Back To Login
               </Link>
             </div>
-            <button
-              type="submit"
-              className="w-full font-bold bg-primary text-white py-2 rounded-md"
-              disabled={loading}
-            >
-              {loading ? "Logging in..." : "Login"}
-            </button>
           </form>
         </div>
       </div>
@@ -131,4 +137,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Page;
