@@ -15,7 +15,7 @@ const page = ({ children }: { children: React.ReactNode }) => {
       <div className="flex-1">
         {/* Header */}
         <Header toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
-
+        gfdd
         {/* Page Content */}
         <main className="p-4">{children}</main>
       </div>
@@ -23,4 +23,4 @@ const page = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default page
+export default page;
