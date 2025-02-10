@@ -1,24 +1,28 @@
-import { getServerSession } from "next-auth";
+"use client"
 //import { authOptions } from "../../lib/authOptions";
-import { redirect } from "next/navigation";
 import React from "react";
+import { useState } from "react";
 import DashboardCard from "./DashboardCard";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
+export default  function Dashboard() {
+ const [searchTerm, setSearchTerm] = useState("");
 
-  if (!session) {
-    redirect("/"); // Redirect if not authenticated
-  }
+  const handleSearch = (event:any) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  
   return (
-    <div>
+    <div className="bg-gray-200">
       <div className="p-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 shadow-md rounded-md py-5 px-10 ">
+        <div className="bg-white flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 shadow-md rounded-md py-5 px-10 ">
           <h1 className="text-2xl font-bold">Dashbaord</h1>
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
             <input
               type="text"
               placeholder="Search for Document"
+              value={searchTerm}
+              onChange={handleSearch}
               className="border p-2  rounded-md w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button className="bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-600 w-full sm:w-auto">
@@ -26,8 +30,9 @@ export default async function Dashboard() {
             </button>
           </div>
         </div>
+        <DashboardCard searchTerm={searchTerm}/>
       </div>
-      <DashboardCard />
+     
     </div>
   );
 }
