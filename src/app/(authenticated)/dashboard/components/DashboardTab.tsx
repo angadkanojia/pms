@@ -2,7 +2,7 @@ import React from "react";
 const DashboardTab: React.FC<DashboardTabProps> = ({ currentFilter, setFilterStatus }) => {
   return (
     <div className="mb-5 border-b mt-2">
-      <div className="flex gap-4 mx-auto mb-5 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 shadow-md rounded-md py-5 px-10">
+      <div className="flex gap-4 mx-auto mb-5 ">
         <button
           onClick={() => setFilterStatus("Inprogress")}
           className={`flex items-center justify-center p-2 text-1xl transition duration-200 w-36 rounded-lg border border-transparent bg-gray-200 hover:border-blue-600 hover:text-blue-600 ${
