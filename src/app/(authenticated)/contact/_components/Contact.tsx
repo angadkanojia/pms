@@ -1,12 +1,11 @@
 "use client"
 import { useState } from "react";
 import TableContact from "./TableContact";
-import { contacts as contactData } from "@/app/api/contact/route";
 
 const Contacts = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (event:any) => {
+  const handleSearch = (event:React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 

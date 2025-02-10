@@ -1,0 +1,3 @@
+type ProposalCardProps = {
+    searchTerm: string; 
+  }

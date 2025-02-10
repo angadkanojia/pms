@@ -2,7 +2,7 @@ import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { contacts as contactData } from "@/app/api/contact/route";
 
-const TableContact = ({ searchTerm }:any) => {
+const TableContact = ({ searchTerm }:ContactInput) => {
   // Search Filter
   const filteredContacts = contactData.filter((contact) =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())

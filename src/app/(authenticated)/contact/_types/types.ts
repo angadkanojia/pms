@@ -1,0 +1,3 @@
+interface ContactInput{
+    searchTerm: string
+}
