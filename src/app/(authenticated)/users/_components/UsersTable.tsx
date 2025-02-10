@@ -5,18 +5,18 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { contacts as contactData } from "@/app/api/contact/route";
+import { users as usersData } from "@/app/api/users/route";
 
-const TableContact = ({ searchTerm }: ContactInput) => {
+const UsersTable = ({ searchUser }: UserProps) => {
   // Global Search Filter
   const filteredContacts = useMemo(
     () =>
-      contactData.filter(
-        (contact) =>
-          contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+      usersData.filter(
+        (user) =>
+          user.name.toLowerCase().includes(searchUser.toLowerCase()) ||
+          user.email.toLowerCase().includes(searchUser.toLowerCase())
       ),
-    [searchTerm]
+    [searchUser]
   );
 
   const columns = useMemo(
@@ -51,7 +51,6 @@ const TableContact = ({ searchTerm }: ContactInput) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
   return (
     <div className="shadow-md rounded-md py-6 px-4 md:py-10 md:px-7 bg-white ">
       <div className="">
@@ -121,4 +120,4 @@ const TableContact = ({ searchTerm }: ContactInput) => {
   );
 };
 
-export default TableContact;
+export default UsersTable;
