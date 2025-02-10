@@ -37,16 +37,13 @@ const CardShadow = () => {
       {menuOpen && (
         <div
           ref={menuRef}
-          className="absolute right-6 -top-32 bg-white shadow-lg rounded-md border p-2 w-32 z-10"
+          className="absolute right-2 -top-24 bg-white shadow-lg rounded-md border p-2 w-32 z-10"
         >
           <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
             Edit
           </button>
           <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
             Delete
-          </button>
-          <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
-            Preview
           </button>
         </div>
       )}

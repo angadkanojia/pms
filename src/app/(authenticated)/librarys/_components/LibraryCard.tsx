@@ -11,7 +11,7 @@ const LibraryCard = ({searchTerm}:LibraryInput) => {
   )
   return (
     <>
-      <div className="shadow-xl rounded-md p-4  mt-3">
+      <div className="bg-white shadow-xl rounded-md p-4  mt-3">
         <div className="container mx-auto p-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {filterTitle.map((library) => (
