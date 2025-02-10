@@ -7,29 +7,41 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
+// Validation schema
 const schema = z.object({
-  email: z.string() .min(1, "Please enter an email").email("Invalid email address"),
+  email: z
+    .string()
+    .min(1, "Please enter an email")
+    .email("Invalid email address"),
 });
+
 type User = z.infer<typeof schema>;
 
-const Page = () => {
-  const router = useRouter();
+const ForgotPasswordPage = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter(); // ✅ Initialize router
+
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(schema),
   });
 
+  // Handle form submission
   const onSubmit = async (formData: User) => {
+    setLoading(true);
+
     try {
       const response = await axios.post("/api/forgot-password", formData);
 
       if (response.status === 200) {
-        router.push("/check-your-email");
+        router.push("/forgot-password/success"); // ✅ Redirect to success page
       } else {
         setError("email", {
           type: "manual",
@@ -37,36 +49,35 @@ const Page = () => {
         });
       }
     } catch (error: any) {
-      console.error("Login error:", error);
-
-      // Extract error message from API response
       const errorMessage =
         error.response?.data?.message || "Something went wrong";
-
       setError("email", { type: "manual", message: errorMessage });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="h-screen grid grid-cols-1 md:grid-cols-2">
-      <div
-        className="hidden md:flex items-center justify-center relative w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/login_left_side_image.png')" }}
-      >
+    <div className="h-screen grid grid-cols-[40%_60%]">
+      {/* Left Side */}
+      <div className="hidden md:flex items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat bg-[url('/images/login_left_side_image.png')]">
         <div className="text-center px-20">
-          <h1 className="font-bold text-5xl mb-5">
+          <h1 className="font-bold text-5xl mb-5 text-white">
             One click to reset password.
           </h1>
-          <p className="text-2xl">We’ll send a link to reset your password.</p>
+          <p className="text-2xl text-white">
+            We’ll send a link to reset your password.
+          </p>
         </div>
       </div>
 
+      {/* Right Side */}
       <div className="flex items-center justify-center p-6 bg-white">
-        <div className="w-full max-w-md p-8 mx-auto rounded-xl">
+        <div className="w-full max-w-md py-8 mx-auto rounded-xl">
           <div className="mx-auto mb-10">
             <Image
-              src={"/images/forgotPassword.png"}
-              alt="login image"
+              src="/images/forgotPassword.png"
+              alt="Forgot password illustration"
               width={170}
               height={200}
               className="mx-auto"
@@ -76,53 +87,54 @@ const Page = () => {
           <h2 className="text-2xl font-bold text-center mb-3 text-primary">
             Forgot Password
           </h2>
-          <h2 className="text-sm text-center mb-6 text-black">
+          <p className="text-sm text-center mb-6 text-gray-700">
             Enter Your Email Address.
-          </h2>
+          </p>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-11">
-              <label className="block text-gray-700 font-bold mb-2">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className="mb-6">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Email Address
               </label>
               <input
+                id="email"
                 type="email"
                 className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
-                  errors.email ? "border-red-700" : "border-inherit"
-                }`}
+                  errors.email ? "border-red-700" : "border-gray-300"
+                } ${loading ? "cursor-not-allowed opacity-50" : ""}`}
                 placeholder="Enter Email Address"
                 {...register("email")}
+                required
+                disabled={loading}
+                aria-invalid={errors.email ? "true" : "false"}
+                aria-describedby={errors.email ? "email-error" : undefined}
               />
+
               {errors.email && (
-                <span className="text-red-700 italic text-sm">
+                <span
+                  id="email-error"
+                  className="text-red-700 italic text-sm"
+                  aria-live="polite"
+                >
                   {errors.email.message}
                 </span>
               )}
             </div>
 
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 font-bold">Password</label>
-              <input
-                type="password"
-                className={`w-full px-4 py-2 border rounded-md outline-none text-black ${
-                  errors.password ? "border-red-700" : "border-inherit"
-                }`}
-                placeholder="Enter your password"
-                {...register("password")}
-              />
-              {errors.password && (
-                <span className="text-red-700 italic text-sm">
-                  {errors.password.message}
-                </span>
-              )}
-            </div> */}
             <div className="flex flex-col gap-4">
               <button
-              type="submit"
-                className="w-full font-bold bg-primary text-white py-2 rounded-md text-center"
+                type="submit"
+                className={`w-full font-bold bg-primary text-white py-2 rounded-md text-center ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
               >
-                {isSubmitting ? "Wait.." : "Continue"}
+                {loading ? "Please wait..." : "Send Reset Link"}
               </button>
+
               <Link
                 href="/"
                 className="w-full font-bold bg-gray-300 text-blue-500 py-2 rounded-md text-center"
@@ -137,4 +149,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ForgotPasswordPage;

@@ -18,5 +18,7 @@ model User {
   email    String  @unique
   name     String?
   password String
+  resetToken       String? // Token for password reset
+  resetTokenExpiry DateTime?
   createdAt DateTime @default(now())
 }

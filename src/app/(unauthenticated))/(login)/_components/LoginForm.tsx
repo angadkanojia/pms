@@ -8,6 +8,7 @@ import { z } from "zod";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { HiEye, HiEyeOff } from "react-icons/hi"; // Import react-icons
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -28,6 +29,13 @@ const LoginForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password"
+  );
+
+  const togglePasswordVisibility = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
 
   const onSubmit = async (formData: User) => {
     setLoading(true);
@@ -104,20 +112,34 @@ const LoginForm = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 font-bold">Password</label>
-              <input
-                type="password"
-                className={`w-full px-4 py-2 border rounded-md outline-none text-black ${
-                  errors.password ? "border-red-700" : "border-inherit"
-                }`}
-                placeholder="Enter your password"
-                {...register("password")}
-              />
+              <div className="relative">
+                <input
+                  type={passwordType}
+                  className={`w-full px-4 py-2 border rounded-md outline-none text-black pr-10 ${
+                    errors.password ? "border-red-700" : "border-inherit"
+                  }`}
+                  placeholder="Enter your password"
+                  {...register("password")}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-mediumgrey"
+                  onClick={togglePasswordVisibility}
+                >
+                  {passwordType === "password" ? (
+                    <HiEyeOff className="w-5 h-5" />
+                  ) : (
+                    <HiEye className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
               {errors.password && (
                 <span className="text-red-700 italic text-sm">
                   {errors.password.message}
                 </span>
               )}
             </div>
+
             <div className="flex justify-end mb-2">
               <Link
                 href="/forgot-password"
