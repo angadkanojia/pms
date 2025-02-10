@@ -1,15 +1,6 @@
-import { getServerSession } from "next-auth";
-//import { authOptions } from "../../lib/authOptions";
-import { redirect } from "next/navigation";
 import React from "react";
 import DashboardCard from "./DashboardCard";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/"); // Redirect if not authenticated
-  }
   return (
     <div>
       <div className="p-5">
