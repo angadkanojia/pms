@@ -16,7 +16,7 @@ const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
         {/* Header */}
         <Header toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
         {/* Page Content */}
-        <main>{children}</main>
+        <main className="bg-gray-200 p-5">{children}</main>
       </div>
     </div>
   );

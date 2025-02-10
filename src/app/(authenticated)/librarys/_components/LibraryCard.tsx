@@ -2,20 +2,19 @@ import Image from "next/image";
 import CardComponent from "./CardShadow";
 import { libraryCards } from "@/app/api/librarys/route";
 
-interface LibraryCard {
-  id: number;
-  title: string;
-  status: string;
-  color: string;
-}
 
-const LibraryCard = () => {
+
+const LibraryCard = ({searchTerm}:LibraryInput) => {
+  // Search Filter
+  const filterTitle = libraryCards.filter((title)=>
+  title.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
   return (
     <>
-      <div className="shadow-xl rounded-md p-4  mt-3">
+      <div className="bg-white shadow-xl rounded-md p-4  mt-3">
         <div className="container mx-auto p-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {libraryCards.map((library) => (
+            {filterTitle.map((library) => (
               <div
                 key={library.id}
                 className="bg-white shadow-md rounded-lg  border flex flex-col justify-between"
