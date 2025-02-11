@@ -4,7 +4,7 @@ import DashboardCard from "./DashboardCard";
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("");
+  const [filterStatus, setFilterStatus] = useState("View All"); // ✅ Default to "View All"
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -28,7 +28,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Pass all required props to DashboardCard */}
       <DashboardCard
         searchTerm={searchTerm}
         filterStatus={filterStatus}
