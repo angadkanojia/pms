@@ -13,12 +13,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  name     String?
-  password String
-  resetToken       String? // Token for password reset
-  resetTokenExpiry DateTime?
-  createdAt DateTime @default(now())
+model user {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique(map: "User_email_key")
+  name          String?
+  password      String
+  mobile_number String        @db.VarChar(255)
+  office_number String        @db.VarChar(255)
+  company_name  String        @db.VarChar(255)
+  address       String        @db.VarChar(255)
+  createdAt     DateTime      @default(now())
+  usertype      user_usertype
+  status        Boolean       @default(true)
+}
+
+model contact {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique(map: "User_email_key")
+  name          String?
+  password      String
+  mobile_number String   @db.VarChar(255)
+  office_number String   @db.VarChar(255)
+  company_name  String   @db.VarChar(255)
+  address       String   @db.VarChar(255)
+  createdAt     DateTime @default(now())
+}
+
+enum user_usertype {
+  admin
+  user
 }
