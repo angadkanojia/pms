@@ -7,7 +7,7 @@ import SessionLayout from "../(common)/_components/SessionLayout";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {

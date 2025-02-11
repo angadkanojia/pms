@@ -12,7 +12,7 @@ const Page = () => {
             Check Your Email
           </h2>
           <p className="mb-6 text-white text-[23px] font-semibold">
-            Don't forget to check your spam folder.
+            Don&apos;t forget to check your spam folder.
           </p>
         </div>
       </div>
@@ -20,12 +20,12 @@ const Page = () => {
       <div className="flex items-center justify-center p-6 bg-white">
         <div className="w-full max-w-[33rem] mx-auto rounded-xl text-center">
           <p className="text-black font-medium mb-6 text-xl">
-            We've sent an email to the email address you provided. Use the link
-            in the email to reset your password.
+            We&apos;ve sent an email to the email address you provided. Use the
+            link in the email to reset your password.
           </p>
           <Link
             href="/"
-            className="text-primary font-bold hover:underline text-3xl font-medium"
+            className="text-primary hover:underline text-3xl font-medium"
           >
             BACK TO LOGIN
           </Link>

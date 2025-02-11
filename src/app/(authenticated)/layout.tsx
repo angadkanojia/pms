@@ -33,7 +33,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <HeaderLayout>{children}</HeaderLayout>
+        <SessionLayout>
+          <HeaderLayout>{children}</HeaderLayout>
+        </SessionLayout>
       </body>
     </html>
   );
