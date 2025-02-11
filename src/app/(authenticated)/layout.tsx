@@ -11,7 +11,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +33,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <HeaderLayout>{children}</HeaderLayout>
+        <SessionLayout>
+          <HeaderLayout>{children}</HeaderLayout>
+        </SessionLayout>
       </body>
     </html>
   );

@@ -65,14 +65,13 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-screen grid grid-cols-1 md:grid-cols-2">
-      <div
-        className="hidden md:flex items-center justify-center relative w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/login_left_side_image.png')" }}
-      >
+    <div className="h-screen grid grid-cols-1 md:grid-cols-[40%_60%]">
+      <div className="hidden md:flex items-center justify-center relative w-full h-full bg-[url('/images/login_left_side_image.png')] bg-cover bg-center bg-no-repeat">
         <div className="text-center px-20">
-          <h1 className="font-bold text-5xl mb-5">Welcome</h1>
-          <p className="text-2xl">To Keep Connected with Us Please Login</p>
+          <h1 className="font-bold text-6xl mb-5 text-white">Welcome</h1>
+          <p className="text-[25px] text-white font-bold">
+            To Keep Connected with Us Please Login
+          </p>
         </div>
       </div>
 
@@ -94,10 +93,12 @@ const LoginForm = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold">Email</label>
+              <label className="block text-gray-700 font-bold pb-2">
+                Email Address
+              </label>
               <input
                 type="email"
-                className={`w-full px-4 py-2 border rounded-md outline-none text-black ${
+                className={`w-full px-4 py-2 border rounded-lg outline-none text-black ${
                   errors.email ? "border-red-700" : "border-inherit"
                 }`}
                 placeholder="Enter your email"
@@ -111,11 +112,13 @@ const LoginForm = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold">Password</label>
+              <label className="block text-gray-700 font-bold pb-2">
+                Password
+              </label>
               <div className="relative">
                 <input
                   type={passwordType}
-                  className={`w-full px-4 py-2 border rounded-md outline-none text-black pr-10 ${
+                  className={`w-full px-4 py-2 border rounded-lg outline-none text-black pr-10 ${
                     errors.password ? "border-red-700" : "border-inherit"
                   }`}
                   placeholder="Enter your password"
@@ -143,7 +146,7 @@ const LoginForm = () => {
             <div className="flex justify-end mb-2">
               <Link
                 href="/forgot-password"
-                className="text-black font-semibold text-sm text-left"
+                className="text-black font-semibold text-sm text-left pb-4"
               >
                 Forgot Password?
               </Link>

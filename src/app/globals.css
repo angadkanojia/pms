@@ -3,17 +3,14 @@
 @tailwind utilities;
 
 :root {
-  
-  --primary :#007DFC;
-  --mediumprimary:#007DFC4D;
-  --darkgrey:#000000B3;
-  --lightgrey: #1E1E1E4D;
-  --mediumgrey:#1E1E1EB3;
+  --primary: #007dfc;
+  --mediumprimary: #007dfc4d;
+  --darkgrey: #000000b3;
+  --lightgrey: #1e1e1e4d;
+  --mediumgrey: #1e1e1eb3;
+  --font-inter: "Inter", sans-serif;
 }
 
-
-
 body {
-
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
 }
