@@ -1,27 +1,42 @@
 import React from "react";
 
-interface InputProps {
-  label: string;
-  type?: string;
-  name: string;
-  register: any;
-  error?: string;
-  className?: string;
-}
+type InputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
-const Input: React.FC<InputProps> = ({
+type Props = {
+  label: string;
+  name: string;
+  error?: string;
+  required?: boolean;
+  className?: string;
+} & InputProps;
+
+const Input: React.FC<Props> = ({
   label,
   type = "text",
-  name,
-  register,
+  placeholder,
   error,
+  required = false,
   className,
+  ...rest
 }) => {
   return (
-    <div>
-      <label className="block text-lg font-medium mb-1">{label}</label>
-      <input {...register(name)} type={type} className={`${className}`} />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    <div className="mb-4">
+      <label className="block text-gray-700 font-bold pb-2">
+        {label}
+        {required && <span className="text-red-700">*</span>}
+      </label>
+      <input
+        type={type}
+        className={`w-full px-4 py-2 border rounded-lg outline-none text-black ${
+          error ? "border-red-700" : "border-inherit"
+        } ${className}`}
+        placeholder={placeholder}
+        {...rest}
+      />
+      {error && <span className="text-red-700 italic text-sm">{error}</span>}
     </div>
   );
 };
