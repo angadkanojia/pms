@@ -7,6 +7,11 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { contacts as contactData } from "@/app/api/contact/route";
 
+interface ContactInput{
+  searchTerm: string
+}
+
+
 const TableContact = ({ searchTerm }: ContactInput) => {
   // Global Search Filter
   const filteredContacts = useMemo(

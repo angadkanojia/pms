@@ -2,6 +2,9 @@ import Image from "next/image";
 import CardComponent from "./CardShadow";
 import { proposals } from "@/app/api/proposals/route";
 
+type ProposalCardProps = {
+  searchTerm: string; 
+}
 const ProposalCard = ({searchTerm}:ProposalCardProps) => {
   // Search Filter
   const filterProposal = proposals.filter((proposal) => 

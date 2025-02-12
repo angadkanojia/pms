@@ -7,6 +7,10 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { users as usersData } from "@/app/api/users/route";
 
+interface UserProps{
+  searchUser: string;
+}
+
 const UsersTable = ({ searchUser }: UserProps) => {
   // Global Search Filter
   const filteredContacts = useMemo(

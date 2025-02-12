@@ -27,7 +27,6 @@ const ForgotPasswordPage = () => {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(schema),
@@ -48,11 +47,15 @@ const ForgotPasswordPage = () => {
           message: "Invalid email",
         });
       }
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong";
-      setError("email", { type: "manual", message: errorMessage });
-    } finally {
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || "Something went wrong";
+        setError("email", { type: "manual", message: errorMessage });
+      } else {
+        setError("email", { type: "manual", message: "An unexpected error occurred" });
+      }
+    }finally {
       setLoading(false);
     }
   };

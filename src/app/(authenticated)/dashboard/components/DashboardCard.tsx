@@ -2,6 +2,12 @@ import Image from "next/image";
 import { dashboard as dashboardData } from "@/app/api/dashboard/route";
 import DashboardTab from "./DashboardTab";
 
+interface DashboardCardProps {
+  searchTerm: string;
+  filterStatus: string;
+  setFilterStatus: (status: string) => void;
+}
+
 const DashboardCard: React.FC<DashboardCardProps> = ({
   searchTerm,
   filterStatus,

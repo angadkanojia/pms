@@ -2,7 +2,9 @@ import Image from "next/image";
 import CardComponent from "./CardShadow";
 import { libraryCards } from "@/app/api/librarys/route";
 
-
+interface LibraryInput {
+  searchTerm: string;
+}
 
 const LibraryCard = ({searchTerm}:LibraryInput) => {
   // Search Filter
