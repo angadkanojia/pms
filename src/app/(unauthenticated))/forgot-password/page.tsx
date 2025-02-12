@@ -1,13 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
 
 // Validation schema
 const schema = z.object({
@@ -27,7 +27,6 @@ const ForgotPasswordPage = () => {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(schema),
@@ -48,10 +47,13 @@ const ForgotPasswordPage = () => {
           message: "Invalid email",
         });
       }
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong";
-      setError("email", { type: "manual", message: errorMessage });
+    } catch (error: unknown) {
+      // #ToDO
+      if (isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || "Something went wrong";
+        setError("email", { type: "manual", message: errorMessage });
+      }
     } finally {
       setLoading(false);
     }

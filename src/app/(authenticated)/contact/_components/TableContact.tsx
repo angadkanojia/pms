@@ -5,7 +5,29 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { contacts as contactData } from "@/app/api/contact/route";
+
+interface ContactInput {
+  searchTerm: string;
+}
+
+const contactData = [
+  {
+    name: "Ricky Pointing",
+    email: "rickypointing@gmail.com",
+  },
+  {
+    name: "Kim Girocking",
+    email: "kimgirocking@yahoo.in",
+  },
+  {
+    name: "Jackson Balabala",
+    email: "jacksonbalabala@icloud.com",
+  },
+  {
+    name: "Claudia Emmay",
+    email: "claudiaemmay@outlook.com",
+  },
+];
 
 const TableContact = ({ searchTerm }: ContactInput) => {
   // Global Search Filter

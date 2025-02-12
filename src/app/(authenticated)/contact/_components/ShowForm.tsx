@@ -48,45 +48,39 @@ const ShowForm = ({
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <Input
               label="Full Name"
-              name="fullName"
-              register={register}
+              {...register("fullName")}
               error={errors.fullName?.message}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
             <Input
               label="Email Address"
-              name="email"
               type="email"
-              register={register}
+              {...register("email")}
               error={errors.email?.message}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
             <Input
               label="Mobile Number"
-              name="mobile"
               type="tel"
-              register={register}
+              {...register("mobile")}
               error={errors.mobile?.message}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
             <Input
               label="Office Number"
-              name="office"
               type="tel"
-              register={register}
+              {...register("office")}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
             <Input
               label="Company Name"
-              name="company"
-              register={register}
+              {...register("company")}
               error={errors.company?.message}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
             <Input
               label="Address"
-              name="address"
-              register={register}
+              {...register("address")}
               error={errors.address?.message}
               className="w-full px-3 py-2  rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
             />
