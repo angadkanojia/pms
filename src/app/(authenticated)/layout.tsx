@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../globals.css";
-import SessionLayout from "../(common)/_components/SessionLayout";
-import HeaderLayout from "../(common)/_components/HeaderLayout";
 import { getServerSession } from "next-auth";
+import { Inter } from "next/font/google";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import HeaderLayout from "../(common)/_components/HeaderLayout";
+import SessionLayout from "../(common)/_components/SessionLayout";
+
+import "../globals.css";
+import { authOptions } from "../lib/auth";
 
 // Use Inter instead of Geist
 const inter = Inter({

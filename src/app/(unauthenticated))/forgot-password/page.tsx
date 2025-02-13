@@ -1,13 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
 
 // Validation schema
 const schema = z.object({
@@ -48,14 +48,13 @@ const ForgotPasswordPage = () => {
         });
       }
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
+      // #ToDO
+      if (isAxiosError(error)) {
         const errorMessage =
           error.response?.data?.message || "Something went wrong";
         setError("email", { type: "manual", message: errorMessage });
-      } else {
-        setError("email", { type: "manual", message: "An unexpected error occurred" });
       }
-    }finally {
+    } finally {
       setLoading(false);
     }
   };

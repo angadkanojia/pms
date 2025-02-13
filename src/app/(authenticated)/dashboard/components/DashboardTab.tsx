@@ -4,6 +4,10 @@ interface DashboardTabProps {
   currentFilter: string;
   setFilterStatus: (status: string) => void;
 }
+interface DashboardTabProps {
+  currentFilter: string;
+  setFilterStatus: (status: string) => void;
+}
 
 const DashboardTab: React.FC<DashboardTabProps> = ({
   currentFilter,

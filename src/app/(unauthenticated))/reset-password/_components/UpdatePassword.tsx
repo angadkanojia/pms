@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -47,10 +47,13 @@ const UpdatePassword = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      setError("password", {
-        type: "manual",
-        message: erro|r.response?.data?.message | "Something went wrong",
-      });
+      // TODO
+      if (isAxiosError(error)) {
+        setError("password", {
+          type: "manual",
+          message: error.response?.data?.message || "Something went wrong",
+        });
+      }
     }
   };
 
