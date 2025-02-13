@@ -19,6 +19,8 @@
       }
     ],
     "paths": {
+      "@/_components/*": ["./src/app/(common)/_components/*"],
+      "@/lib/*": ["./src/app/lib/*"],
       "@/*": ["./src/*"]
     }
   },

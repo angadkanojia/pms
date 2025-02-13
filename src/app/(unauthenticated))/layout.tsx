@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css";
-import SessionLayout from "../(common)/_components/SessionLayout";
+import "@/styles/globals.css";
+import SessionLayout from "@/_components/SessionLayout";
 
 // Use Inter instead of Geist
 const inter = Inter({

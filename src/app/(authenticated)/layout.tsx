@@ -4,9 +4,8 @@ import { Inter } from "next/font/google";
 import { redirect } from "next/navigation";
 import HeaderLayout from "../(common)/_components/HeaderLayout";
 import SessionLayout from "../(common)/_components/SessionLayout";
-
-import "../globals.css";
-import { authOptions } from "../lib/auth";
+import "@/styles/globals.css";
+import { authOptions } from "@/lib/auth";
 
 // Use Inter instead of Geist
 const inter = Inter({
