@@ -1,25 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://pms_pms:Geecon0404@185.220.63.56:3306/pms_pms"
 }
 
 model user {
-  id            Int           @id @default(autoincrement())
-  email         String        @unique(map: "User_email_key")
-  name          String?
-  password      String
-  createdAt     DateTime      @default(now())
-
+  id               Int       @id @default(autoincrement())
+  email            String    @unique(map: "User_email_key")
+  name             String?
+  password         String
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  createdAt        DateTime  @default(now())
 }
 
 model contact {
@@ -33,4 +28,3 @@ model contact {
   address       String   @db.VarChar(255)
   createdAt     DateTime @default(now())
 }
-
