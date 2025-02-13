@@ -18,13 +18,8 @@ model user {
   email         String        @unique(map: "User_email_key")
   name          String?
   password      String
-  mobile_number String        @db.VarChar(255)
-  office_number String        @db.VarChar(255)
-  company_name  String        @db.VarChar(255)
-  address       String        @db.VarChar(255)
   createdAt     DateTime      @default(now())
-  usertype      user_usertype
-  status        Boolean       @default(true)
+
 }
 
 model contact {
@@ -39,7 +34,3 @@ model contact {
   createdAt     DateTime @default(now())
 }
 
-enum user_usertype {
-  admin
-  user
-}
