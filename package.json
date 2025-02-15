@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma": "npx prisma db pull && npx prisma migrate deploy && npx prisma generate"
+    "prisma": "npx prisma db pull && npx prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

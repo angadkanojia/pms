@@ -36,7 +36,7 @@ const Contacts = () => {
           <TableContact searchTerm={searchTerm} />{" "}
         </>
       ) : (
-        <ShowForm setShowForm={setShowForm} showForm={showForm} />
+        <ShowForm setShowForm={setShowForm} />
       )}
     </div>
   );
