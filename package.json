@@ -3,12 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow npm",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prisma": "npx prisma db pull && npx prisma generate",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky",
+    "tsc": "tsc",
+    "eslint": "eslint",
+    "prettier": "prettier",
+    "check-types": "tsc --pretty --noEmit",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js",
+    "check-lint-errors": "eslint . --ext ts --ext tsx --ext js --quiet",
+    "check-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build"
+    
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
