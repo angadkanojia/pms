@@ -33,6 +33,6 @@ export default function Dashboard() {
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
       />
-    
+    </>
   );
 }

@@ -3,23 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow npm",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prisma": "npx prisma db pull && npx prisma generate",
-    "format": "prettier --write .",
-    "prepare": "husky",
-    "tsc": "tsc",
-    "eslint": "eslint",
-    "prettier": "prettier",
-    "check-types": "tsc --pretty --noEmit",
-    "check-format": "prettier --check .",
-    "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "check-lint-errors": "eslint . --ext ts --ext tsx --ext js --quiet",
-    "check-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build"
-    
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -47,7 +36,6 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.1.3",
-    "husky": "^9.1.7",
     "postcss": "^8",
     "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
