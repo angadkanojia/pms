@@ -56,7 +56,7 @@ const ShowForm = ({
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         setErrorMessage(
-          error.response?.data?.message || "Failed to add contact"
+          error.response?.data?.message || "Failed to add contact",
         );
       } else if (error instanceof Error) {
         setErrorMessage(error.message);
@@ -68,20 +68,20 @@ const ShowForm = ({
 
   return (
     <>
-      <div className="shadow-sm bg-white h-16 mb-4 rounded-md flex items-center">
-        <h2 className="text-2xl font-semibold pl-4 text-gray-800">
+      <div className="mb-4 flex h-16 items-center rounded-md bg-white shadow-sm">
+        <h2 className="pl-4 text-2xl font-semibold text-gray-800">
           Add New Contact
         </h2>
       </div>
       <div className="flex items-center justify-center">
-        <div className="bg-white py-2 px-5 rounded-lg shadow-sm w-full">
+        <div className="w-full rounded-lg bg-white px-5 py-2 shadow-sm">
           {successMessage && (
-            <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-md text-center">
+            <div className="mb-4 rounded-md bg-green-100 p-3 text-center text-green-800">
               {successMessage}
             </div>
           )}
           {errorMessage && (
-            <div className="mb-4 p-3 bg-red-100 text-red-800 rounded-md text-center">
+            <div className="mb-4 rounded-md bg-red-100 p-3 text-center text-red-800">
               {errorMessage}
             </div>
           )}
@@ -119,16 +119,16 @@ const ShowForm = ({
               error={errors.address?.message}
             />
 
-            <div className="flex justify-center gap-6 mt-4">
+            <div className="mt-4 flex justify-center gap-6">
               <Button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600"
+                className="rounded-xl bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
               >
                 Add Contact
               </Button>
               <Button
                 type="button"
-                className="bg-gray-400 text-white px-6 py-2 rounded-xl hover:bg-gray-500"
+                className="rounded-xl bg-gray-400 px-6 py-2 text-white hover:bg-gray-500"
                 onClick={() => setShowForm(false)}
               >
                 Cancel

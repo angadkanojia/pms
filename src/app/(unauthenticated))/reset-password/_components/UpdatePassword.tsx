@@ -58,49 +58,49 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-primary">
+    <div className="flex h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h2 className="text-center text-2xl font-bold text-primary">
           Reset Password
         </h2>
 
         {successMessage ? (
-          <p className="text-green-600 text-center mt-4">{successMessage}</p>
+          <p className="mt-4 text-center text-green-600">{successMessage}</p>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="mb-2 block font-bold text-gray-700">
                 New Password
               </label>
               <input
                 type="password"
-                className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
+                className={`w-full rounded-md border bg-gray-100 px-4 py-3 text-black outline-none ${
                   errors.password ? "border-red-700" : "border-inherit"
                 }`}
                 placeholder="Enter new password"
                 {...register("password")}
               />
               {errors.password && (
-                <span className="text-red-700 italic text-sm">
+                <span className="text-sm italic text-red-700">
                   {errors.password.message}
                 </span>
               )}
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-bold mb-2">
+              <label className="mb-2 block font-bold text-gray-700">
                 Confirm Password
               </label>
               <input
                 type="password"
-                className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
+                className={`w-full rounded-md border bg-gray-100 px-4 py-3 text-black outline-none ${
                   errors.confirmPassword ? "border-red-700" : "border-inherit"
                 }`}
                 placeholder="Confirm new password"
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
-                <span className="text-red-700 italic text-sm">
+                <span className="text-sm italic text-red-700">
                   {errors.confirmPassword.message}
                 </span>
               )}
@@ -108,7 +108,7 @@ const UpdatePassword = () => {
 
             <button
               type="submit"
-              className="w-full bg-primary text-white py-2 rounded-md font-bold"
+              className="w-full rounded-md bg-primary py-2 font-bold text-white"
             >
               {isSubmitting ? "Resetting..." : "Reset Password"}
             </button>

@@ -12,21 +12,21 @@ const Contacts = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-200">
+    <div className="bg-gray-200 p-4">
       {!showForm ? (
         <>
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-4 shadow-md rounded-md py-5 px-4 bg-white">
-            <h1 className="text-2xl sm:text-3xl font-bold">Contacts</h1>
-            <div className="flex flex-col sm:flex-row sm:space-x-4 w-full sm:w-auto mt-3 sm:mt-0">
+          <div className="mb-4 flex flex-col items-center justify-between rounded-md bg-white px-4 py-5 shadow-md sm:flex-row">
+            <h1 className="text-2xl font-bold sm:text-3xl">Contacts</h1>
+            <div className="mt-3 flex w-full flex-col sm:mt-0 sm:w-auto sm:flex-row sm:space-x-4">
               <input
                 type="text"
                 placeholder="Search Contact"
                 value={searchTerm}
                 onChange={handleSearch}
-                className="text-gray-700 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 w-full sm:w-auto"
+                className="w-full rounded border border-gray-300 px-4 py-2 text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:w-auto"
               />
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto"
+                className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-white sm:ml-2 sm:mt-0 sm:w-auto"
                 onClick={() => setShowForm(true)}
               >
                 + Add Contact

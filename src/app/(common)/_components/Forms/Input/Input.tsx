@@ -24,19 +24,19 @@ const Input: React.FC<Props> = ({
 }) => {
   return (
     <div className="mb-4">
-      <label className="block text-gray-700 font-bold pb-2">
+      <label className="block pb-2 font-bold text-gray-700">
         {label}
         {required && <span className="text-red-700">*</span>}
       </label>
       <input
         type={type}
-        className={`w-full px-4 py-2 border rounded-lg outline-none text-black ${
+        className={`w-full rounded-lg border px-4 py-2 text-black outline-none ${
           error ? "border-red-700" : "border-inherit"
         } ${className}`}
         placeholder={placeholder}
         {...rest}
       />
-      {error && <span className="text-red-700 italic text-sm">{error}</span>}
+      {error && <span className="text-sm italic text-red-700">{error}</span>}
     </div>
   );
 };

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     } catch {
       return NextResponse.json(
         { success: false, message: "Invalid JSON format!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     if (!email || !name || !mobile_number) {
       return NextResponse.json(
         { success: false, message: "Missing required fields!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     if (existingContact) {
       return NextResponse.json(
         { success: false, message: "Email or mobile number already exists!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -67,14 +67,14 @@ export async function POST(req: Request) {
         message: "Contact added successfully!",
         contact: newContact,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: unknown) {
     console.error("❌ Error:", error);
 
     return NextResponse.json(
       { success: false, message: "Error adding contact", error: String(error) },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

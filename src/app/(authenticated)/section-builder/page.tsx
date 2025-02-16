@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
 
-import Sectionbuilder from './_components/Sectionbuilder'
+import Sectionbuilder from "./_components/Sectionbuilder";
 
 const page = () => {
   return (
     <div>
-      <Sectionbuilder/>
+      <Sectionbuilder />
     </div>
-  )
-}
-export default page
+  );
+};
+export default page;

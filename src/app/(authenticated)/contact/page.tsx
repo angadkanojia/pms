@@ -1,10 +1,12 @@
-import React from 'react'
-import Contacts from './_components/Contact'
+import React from "react";
+import Contacts from "./_components/Contact";
 
 const page = () => {
   return (
-    <><Contacts/></>
-  )
-}
+    <>
+      <Contacts />
+    </>
+  );
+};
 
-export default page
+export default page;

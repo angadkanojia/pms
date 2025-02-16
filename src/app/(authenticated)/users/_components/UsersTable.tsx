@@ -43,17 +43,17 @@ const UsersTable = ({ searchUser }: UserProps) => {
       usersData.filter(
         (user) =>
           user.name.toLowerCase().includes(searchUser.toLowerCase()) ||
-          user.email.toLowerCase().includes(searchUser.toLowerCase())
+          user.email.toLowerCase().includes(searchUser.toLowerCase()),
       ),
-    [searchUser]
+    [searchUser],
   );
 
   const columns = useMemo(
     () => [
       {
         id: "select",
-        header: () => <input type="checkbox" className="w-5 h-5 rounded-md" />,
-        cell: () => <input type="checkbox" className="w-5 h-5" />,
+        header: () => <input type="checkbox" className="h-5 w-5 rounded-md" />,
+        cell: () => <input type="checkbox" className="h-5 w-5" />,
       },
       { accessorKey: "name", header: () => "Name" },
       { accessorKey: "email", header: () => "Email" },
@@ -72,7 +72,7 @@ const UsersTable = ({ searchUser }: UserProps) => {
         ),
       },
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -81,26 +81,26 @@ const UsersTable = ({ searchUser }: UserProps) => {
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="shadow-md rounded-md py-6 px-4 md:py-10 md:px-7 bg-white ">
+    <div className="rounded-md bg-white px-4 py-6 shadow-md md:px-7 md:py-10">
       <div className="">
-        <table className="min-w-full ">
+        <table className="min-w-full">
           <thead className="bg-blue-100">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((column, index) => (
                   <th
                     key={column.id}
-                    className={`py-3 px-2 md:px-4 text-left text-sm md:text-base ${
-                      index === 0 ? "rounded-tl-lg rounded-bl-lg" : ""
+                    className={`px-2 py-3 text-left text-sm md:px-4 md:text-base ${
+                      index === 0 ? "rounded-bl-lg rounded-tl-lg" : ""
                     } ${
                       index === headerGroup.headers.length - 1
-                        ? "rounded-tr-md rounded-br-lg"
+                        ? "rounded-br-lg rounded-tr-md"
                         : ""
                     }`}
                   >
                     {flexRender(
                       column.column.columnDef.header,
-                      column.getContext()
+                      column.getContext(),
                     )}
                   </th>
                 ))}
@@ -114,19 +114,19 @@ const UsersTable = ({ searchUser }: UserProps) => {
                   {row.getVisibleCells().map((cell, index) => (
                     <td
                       key={cell.id}
-                      className={`py-2 px-2 md:py-3 md:px-4 text-sm md:text-base ${
+                      className={`px-2 py-2 text-sm md:px-4 md:py-3 md:text-base ${
                         rowIndex === table.getRowModel().rows.length - 1
                           ? index === 0
                             ? "rounded-bl-md"
                             : index === row.getVisibleCells().length - 1
-                            ? "rounded-br-md"
-                            : ""
+                              ? "rounded-br-md"
+                              : ""
                           : ""
                       }`}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   ))}
@@ -136,7 +136,7 @@ const UsersTable = ({ searchUser }: UserProps) => {
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="py-3 px-4 text-center text-gray-500 rounded-b-md"
+                  className="rounded-b-md px-4 py-3 text-center text-gray-500"
                 >
                   No contacts found
                 </td>
