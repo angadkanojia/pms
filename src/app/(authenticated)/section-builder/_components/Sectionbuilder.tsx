@@ -7,19 +7,18 @@ const Sectionbuilder = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="p-4 bg-gray-200">
+    <div className="bg-gray-200 p-4">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 shadow-md rounded-md py-5 px-4 bg-white">
-        <h1 className="text-2xl sm:text-3xl font-bold">Section Builder</h1>
-        <div className="flex flex-col sm:flex-row sm:space-x-4 w-full sm:w-auto mt-3 sm:mt-0">
+      <div className="mb-4 flex flex-col items-center justify-between rounded-md bg-white px-4 py-5 shadow-md sm:flex-row">
+        <h1 className="text-2xl font-bold sm:text-3xl">Section Builder</h1>
+        <div className="mt-3 flex w-full flex-col sm:mt-0 sm:w-auto sm:flex-row sm:space-x-4">
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto"
+            className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-white sm:ml-2 sm:mt-0 sm:w-auto"
             onClick={() => setIsModalOpen(true)}
           >
             + Add Section Builder
           </button>
         </div>
-
       </div>
 
       {/* Table Section */}

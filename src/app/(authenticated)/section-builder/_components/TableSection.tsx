@@ -10,14 +10,14 @@ const sectionbuilder = [
 
 const TableSection: React.FC = () => {
   return (
-    <div className="shadow-md rounded-md py-6 px-4 md:py-10 md:px-7 bg-white">
+    <div className="rounded-md bg-white px-4 py-6 shadow-md md:px-7 md:py-10">
       <table className="min-w-full border-collapse border border-gray-300">
         <thead className="bg-blue-100">
           <tr>
-            <th className="py-3 px-4 text-left text-sm md:text-base font-semibold">
+            <th className="px-4 py-3 text-left text-sm font-semibold md:text-base">
               Title
             </th>
-            <th className="py-3 px-4 text-center text-sm md:text-base font-semibold">
+            <th className="px-4 py-3 text-center text-sm font-semibold md:text-base">
               Actions
             </th>
           </tr>
@@ -25,8 +25,8 @@ const TableSection: React.FC = () => {
         <tbody className="bg-white">
           {sectionbuilder.map((item) => (
             <tr key={item.id} className="border-b hover:bg-gray-50">
-              <td className="py-3 px-4 text-sm md:text-base">{item.title}</td>
-              <td className="py-3 px-4 flex justify-center space-x-4">
+              <td className="px-4 py-3 text-sm md:text-base">{item.title}</td>
+              <td className="flex justify-center space-x-4 px-4 py-3">
                 <button className="text-gray-600 hover:text-red-500">
                   <FaTrash />
                 </button>

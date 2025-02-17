@@ -7,24 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id               Int       @id @default(autoincrement())
-  email            String    @unique(map: "User_email_key")
-  name             String?
-  password         String
-  resetToken       String?
-  resetTokenExpiry DateTime?
-  createdAt        DateTime  @default(now())
+model pms_contacts {
+  id            Int                  @id @default(autoincrement())
+  name          String               @db.VarChar(255)
+  email         String               @unique(map: "email") @db.VarChar(255)
+  mobile_number String?              @db.VarChar(20)
+  office_number String?              @db.VarChar(20)
+  company_name  String?              @db.VarChar(255)
+  address       String?              @db.Text
+  status        pms_contacts_status? @default(active) 
+  createdAt     DateTime?            @default(now()) @db.Timestamp(0)
+  updatedAt     DateTime?            @default(now()) @db.Timestamp(0)
 }
 
-model contact {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique(map: "User_email_key")
-  name          String?
-  password      String
-  mobile_number String   @db.VarChar(255)
-  office_number String   @db.VarChar(255)
-  company_name  String   @db.VarChar(255)
-  address       String   @db.VarChar(255)
-  createdAt     DateTime @default(now())
+model pms_sectionbuilder {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(255)
+  status    Int?      @default(1)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+}
+
+model user {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique(map: "email")
+  name             String?   @db.VarChar(255)
+  password         String    @db.VarChar(255)
+  resetToken       String?   @db.VarChar(255)
+  resetTokenExpiry DateTime? @db.DateTime(0)
+  createdAt        DateTime? @default(now()) @db.DateTime(0)
+}
+
+enum pms_contacts_status {
+  active
+  inactive
+  deleted
 }

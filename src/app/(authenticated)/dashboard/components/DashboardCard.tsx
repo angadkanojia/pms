@@ -40,7 +40,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   });
 
   return (
-    <div className="shadow-xl rounded-md p-4 mt-3 bg-white">
+    <div className="mt-3 rounded-md bg-white p-4 shadow-xl">
       {/* Render the tab buttons */}
       <DashboardTab
         currentFilter={filterStatus}
@@ -48,20 +48,20 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
       />
 
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredDashboard.map((item, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-lg border flex flex-col justify-between"
+              className="flex flex-col justify-between rounded-lg border bg-white shadow-md"
             >
               <Image
                 src="/images/proposal_img.png"
                 alt="library image"
                 width={300}
                 height={500}
-                className="w-full h-auto rounded-t-lg"
+                className="h-auto w-full rounded-t-lg"
               />
-              <div className="mb-2 px-5 pt-2 flex justify-between items-center">
+              <div className="mb-2 flex items-center justify-between px-5 pt-2">
                 <span className="font-semibold">{item.title}</span>
               </div>
             </div>
