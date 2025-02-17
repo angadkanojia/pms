@@ -4,7 +4,7 @@ import TableContact from "./TableContact";
 import ShowForm from "./ShowForm";
 
 const Contacts = () => {
-  const [search Term, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
