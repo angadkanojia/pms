@@ -43,9 +43,9 @@
   "rules": {
     "react/no-unescaped-entities": "off",
     "prefer-const": "error",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off", // TODO: Change to "warn"
-    "@typescript-eslint/no-explicit-any": "off", //  TODO: Change to "error"
+    "no-unused-vars": "warn", // Re-enabled
+    "@typescript-eslint/no-unused-vars": "warn", // Re-enabled
+    "@typescript-eslint/no-explicit-any": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
     "react/react-in-jsx-scope": "off",
@@ -57,8 +57,6 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
-    // defaultProps rule to be deprecated on function components
-    // https://github.com/reactjs/rfcs/pull/107
     "react/require-default-props": [
       "error",
       {
@@ -136,6 +134,7 @@
         "endOfLine": "auto",
         "trailingComma": "es5"
       }
-    ]
+    ],
+    "camelcase": ["error", { "properties": "always" }] // Added to catch variable name issues
   }
 }
