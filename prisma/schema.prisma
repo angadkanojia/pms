@@ -15,7 +15,7 @@ model pms_contacts {
   office_number String?              @db.VarChar(20)
   company_name  String?              @db.VarChar(255)
   address       String?              @db.Text
-  status        pms_contacts_status? @default(active) 
+  status        pms_contacts_status? @default(active)
   createdAt     DateTime?            @default(now()) @db.Timestamp(0)
   updatedAt     DateTime?            @default(now()) @db.Timestamp(0)
 }
