@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import TableContact from "./TableContact";
 import ShowForm from "./ShowForm";
