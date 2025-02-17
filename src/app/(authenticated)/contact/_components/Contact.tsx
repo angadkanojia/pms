@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import TableContact from "./TableContact";
 import ShowForm from "./ShowForm";
@@ -9,7 +10,7 @@ const Contacts = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-
+  console.log("angad");
   return (
     <div className="bg-gray-200 p-4">
       {!showForm ? (
