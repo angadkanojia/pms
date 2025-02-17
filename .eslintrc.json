@@ -12,7 +12,12 @@
     "node": true,
     "es6": true
   },
-  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "prettier",
+    "tailwindcss" // Add tailwindcss plugin
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -29,6 +34,9 @@
     "prettier/prettier": [
       "error",
       { "endOfLine": "auto", "trailingComma": "es5" }
-    ]
+    ],
+    "tailwindcss/no-duplicate-class": "error",
+
+    "tailwindcss/classnames-order": "warn"
   }
 }
