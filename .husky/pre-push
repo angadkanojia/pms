@@ -1,0 +1,11 @@
+echo 'Building before pushing'
+
+npm run build ||
+    (
+        echo '❌ Build failed ❌
+            Next build failed: View the errors above to see why.'
+        false
+    )
+
+# If everything passes... Now we can push
+echo '✅ Pushing changes now... ✅'

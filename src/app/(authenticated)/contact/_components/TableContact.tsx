@@ -29,6 +29,11 @@ const contactData = [
   },
 ];
 
+interface ContactInput{
+  searchTerm: string
+}
+
+
 const TableContact = ({ searchTerm }: ContactInput) => {
   // Global Search Filter
   const filteredContacts = useMemo(

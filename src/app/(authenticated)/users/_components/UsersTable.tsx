@@ -36,6 +36,10 @@ interface UserProps {
   searchUser: string;
 }
 
+interface UserProps{
+  searchUser: string;
+}
+
 const UsersTable = ({ searchUser }: UserProps) => {
   // Global Search Filter
   const filteredContacts = useMemo(
