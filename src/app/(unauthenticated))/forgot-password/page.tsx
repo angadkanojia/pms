@@ -60,11 +60,11 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="h-screen grid grid-cols-[40%_60%]">
+    <div className="grid h-screen grid-cols-[40%_60%]">
       {/* Left Side */}
-      <div className="hidden md:flex items-center justify-center w-full h-full bg-cover bg-center bg-no-repeat bg-[url('/images/login_left_side_image.png')]">
-        <div className="text-center px-20">
-          <h1 className="font-bold text-5xl mb-5 text-white">
+      <div className="hidden h-full w-full items-center justify-center bg-[url('/images/login_left_side_image.png')] bg-cover bg-center bg-no-repeat md:flex">
+        <div className="px-20 text-center">
+          <h1 className="mb-5 text-5xl font-bold text-white">
             One click to reset password.
           </h1>
           <p className="text-2xl text-white">
@@ -74,8 +74,8 @@ const ForgotPasswordPage = () => {
       </div>
 
       {/* Right Side */}
-      <div className="flex items-center justify-center p-6 bg-white">
-        <div className="w-full max-w-md py-8 mx-auto rounded-xl">
+      <div className="flex items-center justify-center bg-white p-6">
+        <div className="mx-auto w-full max-w-md rounded-xl py-8">
           <div className="mx-auto mb-10">
             <Image
               src="/images/forgotPassword.png"
@@ -86,10 +86,10 @@ const ForgotPasswordPage = () => {
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-center mb-3 text-primary">
+          <h2 className="mb-3 text-center text-2xl font-bold text-primary">
             Forgot Password
           </h2>
-          <p className="text-sm text-center mb-6 text-gray-700">
+          <p className="mb-6 text-center text-sm text-gray-700">
             Enter Your Email Address.
           </p>
 
@@ -97,14 +97,14 @@ const ForgotPasswordPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="email"
-                className="block text-gray-700 font-bold mb-2"
+                className="mb-2 block font-bold text-gray-700"
               >
                 Email Address
               </label>
               <input
                 id="email"
                 type="email"
-                className={`w-full px-4 py-3 border rounded-md outline-none bg-gray-100 text-black ${
+                className={`w-full rounded-md border bg-gray-100 px-4 py-3 text-black outline-none ${
                   errors.email ? "border-red-700" : "border-gray-300"
                 } ${loading ? "cursor-not-allowed opacity-50" : ""}`}
                 placeholder="Enter Email Address"
@@ -118,7 +118,7 @@ const ForgotPasswordPage = () => {
               {errors.email && (
                 <span
                   id="email-error"
-                  className="text-red-700 italic text-sm"
+                  className="text-sm italic text-red-700"
                   aria-live="polite"
                 >
                   {errors.email.message}
@@ -129,8 +129,8 @@ const ForgotPasswordPage = () => {
             <div className="flex flex-col gap-4">
               <button
                 type="submit"
-                className={`w-full font-bold bg-primary text-white py-2 rounded-md text-center ${
-                  loading ? "opacity-50 cursor-not-allowed" : ""
+                className={`w-full rounded-md bg-primary py-2 text-center font-bold text-white ${
+                  loading ? "cursor-not-allowed opacity-50" : ""
                 }`}
                 disabled={loading}
               >
@@ -139,7 +139,7 @@ const ForgotPasswordPage = () => {
 
               <Link
                 href="/"
-                className="w-full font-bold bg-gray-300 text-blue-500 py-2 rounded-md text-center"
+                className="w-full rounded-md bg-gray-300 py-2 text-center font-bold text-blue-500"
               >
                 Back To Login
               </Link>

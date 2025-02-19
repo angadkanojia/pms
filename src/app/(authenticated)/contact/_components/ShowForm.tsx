@@ -99,14 +99,14 @@ const ShowForm = ({
         </h2>
       </div>
       <div className="flex items-center justify-center">
-        <div className="bg-white py-2 px-5 rounded-lg shadow-sm w-full">
+        <div className="w-full rounded-lg bg-white px-5 py-2 shadow-sm">
           {successMessage && (
-            <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-md text-center">
+            <div className="mb-4 rounded-md bg-green-100 p-3 text-center text-green-800">
               {successMessage}
             </div>
           )}
           {errorMessage && (
-            <div className="mb-4 p-3 bg-red-100 text-red-800 rounded-md text-center">
+            <div className="mb-4 rounded-md bg-red-100 p-3 text-center text-red-800">
               {errorMessage}
             </div>
           )}
@@ -144,10 +144,10 @@ const ShowForm = ({
               error={errors.address?.message}
             />
 
-            <div className="flex justify-center gap-6 mt-4">
+            <div className="mt-4 flex justify-center gap-6">
               <Button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600"
+                className="rounded-xl bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
               >
                 {contact ? "Update Contact" : "Add Contact"}
               </Button>

@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     if (!user) {
       return NextResponse.json(
         { message: "Invalid or expired token" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,13 +50,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { message: "Password reset successful" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error in reset-password API:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

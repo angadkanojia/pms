@@ -1,0 +1,44 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "prettier",
+    "tailwindcss" // Add tailwindcss plugin
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "no-console":"error",
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/react-in-jsx-scope": "off",
+    "prefer-const": "error",
+    "camelcase": ["error", { "properties": "always" }],
+    "prettier/prettier": [
+      "error",
+      { "endOfLine": "auto", "trailingComma": "es5" }
+    ],
+    "tailwindcss/no-duplicate-class": "error",
+
+
+    "tailwindcss/classnames-order": "warn"
+  }
+}

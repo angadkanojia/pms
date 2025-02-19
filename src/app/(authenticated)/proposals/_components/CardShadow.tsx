@@ -25,27 +25,27 @@ const CardComponent = () => {
   return (
     <div ref={menuRef} className="relative mb-1">
       <div
-        className="flex flex-col items-center justify-center gap-1 cursor-pointer"
+        className="flex cursor-pointer flex-col items-center justify-center gap-1"
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
-        <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
-        <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
+        <div className="h-1 w-1 rounded-full bg-gray-700"></div>
+        <div className="h-1 w-1 rounded-full bg-gray-700"></div>
+        <div className="h-1 w-1 rounded-full bg-gray-700"></div>
       </div>
 
       {/* Dropdown Menu */}
       {menuOpen && (
         <div
           ref={menuRef}
-          className="absolute right-2 -top-32 bg-white shadow-lg rounded-md border p-2 w-32 z-10"
+          className="absolute -top-32 right-2 z-10 w-32 rounded-md border bg-white p-2 shadow-lg"
         >
-          <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
+          <button className="block w-full px-3 py-1 text-left hover:bg-gray-100">
             Edit
           </button>
-          <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
+          <button className="block w-full px-3 py-1 text-left hover:bg-gray-100">
             Delete
           </button>
-          <button className="block w-full text-left px-3 py-1 hover:bg-gray-100">
+          <button className="block w-full px-3 py-1 text-left hover:bg-gray-100">
             Preview
           </button>
         </div>

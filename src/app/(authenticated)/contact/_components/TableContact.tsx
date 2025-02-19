@@ -98,8 +98,8 @@ const TableContact = ({
     () => [
       {
         id: "select",
-        header: () => <input type="checkbox" className="w-5 h-5 rounded-md" />,
-        cell: () => <input type="checkbox" className="w-5 h-5" />,
+        header: () => <input type="checkbox" className="h-5 w-5 rounded-md" />,
+        cell: () => <input type="checkbox" className="h-5 w-5" />,
       },
       { accessorKey: "name", header: "Name" },
       { accessorKey: "email", header: "Email" },
@@ -124,7 +124,7 @@ const TableContact = ({
         ),
       },
     ],
-    []
+    [],
   );
 
   // Initialize table

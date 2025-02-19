@@ -1,10 +1,12 @@
-import React from 'react'
-import User from './_components/User'
+import React from "react";
+import User from "./_components/User";
 
 const page = () => {
   return (
-    <><User/></>
-  )
-}
+    <>
+      <User />
+    </>
+  );
+};
 
-export default page
+export default page;

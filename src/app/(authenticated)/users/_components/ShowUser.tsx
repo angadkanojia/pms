@@ -37,60 +37,60 @@ const ShowUser = ({
 
   return (
     <>
-      <div className="shadow-sm bg-white h-16 mb-4 rounded-md flex items-center">
-        <h2 className="text-2xl font-semibold pl-4 text-gray-800">
+      <div className="mb-4 flex h-16 items-center rounded-md bg-white shadow-sm">
+        <h2 className="pl-4 text-2xl font-semibold text-gray-800">
           Add New User
         </h2>
       </div>
       <div className="flex items-center justify-center">
-        <div className="bg-white py-2 px-5 rounded-lg shadow-sm w-full">
+        <div className="w-full rounded-lg bg-white px-5 py-2 shadow-sm">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <Input
               label="Full Name"
               {...register("fullName")}
               error={errors.fullName?.message}
-              className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
+              className="w-full rounded-md bg-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
             <Input
               label="User Name"
               {...register("userName")}
               error={errors.userName?.message}
-              className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
+              className="w-full rounded-md bg-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
             <Input
               label="Email Address"
               {...register("email")}
               error={errors.email?.message}
-              className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
+              className="w-full rounded-md bg-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
             <Input
               label="Password"
               {...register("password")}
               error={errors.password?.message}
-              className="w-full px-3 py-2 rounded-md focus:ring-2 focus:ring-blue-500 bg-gray-200 outline-none"
+              className="w-full rounded-md bg-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
             {/* User Status Checkbox */}
-            <div className="flex items-center gap-2 mt-2">
+            <div className="mt-2 flex items-center gap-2">
               <input
                 type="checkbox"
                 {...register("status")}
                 id="status"
-                className="w-5 h-5 appearance-non rounded-3xl bg-gray-200 border border-gray-300 checked:bg-blue-600 checked:border-blue-600 focus:ring-2 focus:ring-blue-500 mt-2"
+                className="appearance-non mt-2 h-5 w-5 rounded-3xl border border-gray-300 bg-gray-200 checked:border-blue-600 checked:bg-blue-600 focus:ring-2 focus:ring-blue-500"
               />
-              <label htmlFor="status" className="text-gray-800 mt-2">
+              <label htmlFor="status" className="mt-2 text-gray-800">
                 User Status
               </label>
             </div>
 
-            <div className="flex justify-center gap-10 mt-4">
+            <div className="mt-4 flex justify-center gap-10">
               <Button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600"
+                className="rounded-xl bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
               >
                 Add Users
               </Button>
               <Button
-                className="bg-gray-400 text-white px-6 py-2 rounded-xl hover:bg-gray-500"
+                className="rounded-xl bg-gray-400 px-6 py-2 text-white hover:bg-gray-500"
                 onClick={() => setShowUser(false)}
               >
                 Cancel

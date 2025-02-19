@@ -1,34 +1,65 @@
 "use client";
-import { useState } from "react";
-import TableSection from "./TableSection";
-import Modal from "./Model";
 
-const Sectionbuilder = () => {
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Modal from "./Model"; // Use the reusable Modal component
+import TableSection from "./TableSection";
+
+const SectionBuilder: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sections, setSections] = useState<{ id: number; title: string }[]>([]);
+  const [selectedSection, setSelectedSection] = useState<{ id: number; title: string } | null>(null);
+  const [modalAction, setModalAction] = useState<"add" | "edit">("add"); // Tracks whether we're adding or editing a section
+
+  const fetchSections = async () => {
+    try {
+      const response = await axios.get("/api/section-builder");
+      setSections(response.data.sections);
+    } catch (error) {
+      console.error("Error fetching sections:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSections();
+  }, []);
+
+  const handleEdit = (section: { id: number; title: string }) => {
+    setSelectedSection(section);
+    setModalAction("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleAdd = () => {
+    setModalAction("add");
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="p-4 bg-gray-200">
-      {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4 shadow-md rounded-md py-5 px-4 bg-white">
-        <h1 className="text-2xl sm:text-3xl font-bold">Section Builder</h1>
-        <div className="flex flex-col sm:flex-row sm:space-x-4 w-full sm:w-auto mt-3 sm:mt-0">
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto"
-            onClick={() => setIsModalOpen(true)}
-          >
-            + Add Section Builder
-          </button>
-        </div>
-
+        <h1 className="text-2xl font-bold">Section Builder</h1>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-0"
+          onClick={handleAdd}
+        >
+          + Add Section
+        </button>
       </div>
 
       {/* Table Section */}
-      <TableSection />
+      <TableSection sections={sections} fetchSections={fetchSections} handleEdit={handleEdit} />
 
       {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        section={selectedSection}
+        refreshData={fetchSections}
+        action={modalAction} // Pass action for add or edit
+      />
     </div>
   );
 };
 
-export default Sectionbuilder;
+export default SectionBuilder;

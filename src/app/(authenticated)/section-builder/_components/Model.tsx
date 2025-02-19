@@ -1,23 +1,68 @@
 "use client";
-import React from "react";
 
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  section?: { id: number; title: string } | null; 
+  refreshData: () => void;
+  action: "add" | "edit"; 
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null; // Don't render modal if not open
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, section, refreshData, action }) => {
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  // Show toast message when triggered
+  const showToastMessage = (message: string) => {
+    toast.success(message, {
+      position: "top-right", // Position at the top right
+    });
+  };
+
+  useEffect(() => {
+    if (action === "edit" && section) {
+      setTitle(section.title);
+    }
+  }, [action, section]);
+
+  const handleSave = async () => {
+    if (!title.trim()) {
+      alert("Title is required!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      if (action === "add") {
+        await axios.post("/api/section-builder", { title });
+        showToastMessage("Section added successfully!");
+      } else if (action === "edit" && section) {
+        await axios.patch("/api/section-builder", { id: section.id, title });
+        showToastMessage("Section updated successfully!");
+      }
+      setTitle(""); // Reset the title input
+      onClose(); // Close the modal
+      refreshData(); // Refresh the table
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to save section.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold text-center">Add New Section</h2>
-          <button
-            className="text-gray-500 hover:text-gray-800"
-            onClick={onClose}
-          >
+          <h2 className="text-xl font-bold">{action === "add" ? "Add New Section" : "Edit Section"}</h2>
+          <button className="text-gray-500 hover:text-gray-800" onClick={onClose}>
             ✖
           </button>
         </div>
@@ -25,12 +70,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           type="text"
           placeholder="Enter section name"
           className="w-full p-2 border border-gray-300 rounded mt-4"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          disabled={loading}
         />
         <button
-          className="bg-blue-500 text-white px-2 text-center py-2 rounded w-full mt-4"
-          onClick={onClose} // Close modal after saving
+          className={`bg-blue-500 text-white px-4 py-2 rounded w-full mt-4 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={handleSave}
+          disabled={loading}
         >
-          Save Section
+          {loading ? "Saving..." : action === "add" ? "Save Section" : "Update Section"}
         </button>
       </div>
     </div>
