@@ -6,8 +6,6 @@ import { menuItems } from "./MenuItems";
 const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
   const pathname = usePathname();
 
- 
-
   return (
     <div
       className={`h-screen bg-white border-r border-b transition-all duration-300 ${
