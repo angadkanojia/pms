@@ -30,14 +30,12 @@ const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
             <li key={item.title}>
               <Link
                 href={item.href}
-                className={`group flex items-center rounded-lg border border-transparent p-2 text-2xl text-gray-900 transition duration-200 hover:border-blue-600 hover:text-blue-600 dark:text-white ${
-                  pathname === item.href ? "bg-blue-100 text-blue-600" : ""
+                className={`group flex items-center rounded-lg border border-transparent p-2 text-2xl text-gray-900 transition duration-200 hover:border-primary hover:text-primary ${
+                  pathname === item.href ? "bg-blue-100 text-primary" : ""
                 }`}
               >
                 {/* Icon */}
-                <span className="h-5 w-5 shrink-0 text-gray-500 transition duration-75 group-hover:text-blue-600 dark:text-gray-400">
-                  {item.icon}
-                </span>
+                <span className="h-5 w-5 text-gray-500">{item.icon}</span>
                 {/* Conditionally render the title */}
                 {!isCollapsed && <span className="ms-3">{item.title}</span>}
               </Link>
