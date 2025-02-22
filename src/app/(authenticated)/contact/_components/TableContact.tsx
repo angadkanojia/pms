@@ -46,9 +46,10 @@ const TableContact = ({
         response.data.contacts.sort(
           (
             a: { createdAt: string | number | Date },
-            b: { createdAt: string | number | Date }
-          ) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
+            b: { createdAt: string | number | Date },
+          ) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        ),
       );
     } catch (error) {
       console.error("Error fetching contacts:", error);
@@ -64,7 +65,7 @@ const TableContact = ({
     return contacts.filter(
       (contact) =>
         contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+        contact.email.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [searchTerm, contacts]);
 
@@ -73,7 +74,7 @@ const TableContact = ({
     try {
       await axios.delete(`/api/contacts?id=${id}`);
       setContacts((prevContacts) =>
-        prevContacts.filter((contact) => Number(contact.id) !== id)
+        prevContacts.filter((contact) => Number(contact.id) !== id),
       );
     } catch (error) {
       console.error("Error deleting contact:", error);
@@ -81,17 +82,20 @@ const TableContact = ({
   }, []);
 
   // Open the form in edit mode
-  const handleEdit = (contact: ContactProps) => {
-    setSelectedContact({
-      ...contact,
-      address: contact.address || "", // Provide default values if missing
-      mobile_number: contact.mobile_number || "",
-      company_name: contact.company_name || "",
-      office_number: contact.office_number || undefined,
-    });
-    console.log(setSelectedContact);
-    setShowForm(true);
-  };
+  const handleEdit = useCallback(
+    (contact: ContactProps) => {
+      setSelectedContact({
+        ...contact,
+        address: contact.address || "", // Provide default values if missing
+        mobile_number: contact.mobile_number || "",
+        company_name: contact.company_name || "",
+        office_number: contact.office_number || undefined,
+      });
+      console.log(setSelectedContact);
+      setShowForm(true);
+    },
+    [setSelectedContact, setShowForm],
+  );
 
   // Define table columns
   const columns = useMemo(
@@ -124,7 +128,7 @@ const TableContact = ({
         ),
       },
     ],
-    [],
+    [handleDelete, handleEdit],
   );
 
   // Initialize table
@@ -149,9 +153,9 @@ const TableContact = ({
   });
 
   return (
-    <div className="shadow-md rounded-md py-6 px-4 md:py-10 md:px-7 bg-white">
+    <div className="rounded-md bg-white px-4 py-6 shadow-md md:px-7 md:py-10">
       {/* Top Section: Records Per Page Selector */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <select
             value={pageSize}
@@ -159,7 +163,7 @@ const TableContact = ({
               setPageSize(Number(e.target.value));
               setPageIndex(0);
             }}
-            className="px-4 py-2 border rounded-md mr-2"
+            className="mr-2 rounded-md border px-4 py-2"
           >
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -178,11 +182,11 @@ const TableContact = ({
               {headerGroup.headers.map((column) => (
                 <th
                   key={column.id}
-                  className="py-3 px-2 md:px-4 text-left text-sm md:text-base"
+                  className="px-2 py-3 text-left text-sm md:px-4 md:text-base"
                 >
                   {flexRender(
                     column.column.columnDef.header,
-                    column.getContext()
+                    column.getContext(),
                   )}
                 </th>
               ))}
@@ -196,7 +200,7 @@ const TableContact = ({
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className="py-2 px-2 md:py-3 md:px-4 text-sm md:text-base"
+                    className="px-2 py-2 text-sm md:px-4 md:py-3 md:text-base"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -207,7 +211,7 @@ const TableContact = ({
             <tr>
               <td
                 colSpan={columns.length}
-                className="py-3 px-4 text-center text-gray-500"
+                className="px-4 py-3 text-center text-gray-500"
               >
                 No contacts found
               </td>
@@ -217,8 +221,8 @@ const TableContact = ({
       </table>
 
       {/* Pagination Controls */}
-      <div className="flex py-4 items-center border-t border-gray-300 mt-4 justify-between">
-        <div className="text-sm text-gray-600 mr-4">
+      <div className="mt-4 flex items-center justify-between border-t border-gray-300 py-4">
+        <div className="mr-4 text-sm text-gray-600">
           <p>
             Showing {pageIndex * pageSize + 1} to{" "}
             {Math.min((pageIndex + 1) * pageSize, filteredContacts.length)} of{" "}
@@ -226,9 +230,9 @@ const TableContact = ({
           </p>
         </div>
 
-        <div className="flex items-center border rounded-md">
+        <div className="flex items-center rounded-md border">
           <button
-            className="py-2 px-4 text-black border-r hover:text-blue-600"
+            className="border-r px-4 py-2 text-black hover:text-blue-600"
             onClick={() => setPageIndex(Math.max(pageIndex - 1, 0))}
             disabled={pageIndex === 0}
           >
@@ -238,12 +242,12 @@ const TableContact = ({
           <div className="flex items-center">
             {Array.from(
               { length: table.getPageCount() },
-              (_, index) => index
+              (_, index) => index,
             ).map((page, idx) => (
               <button
                 key={page}
                 onClick={() => setPageIndex(page)}
-                className={`py-2 px-4 ${
+                className={`px-4 py-2 ${
                   page === pageIndex ? "bg-blue-500 text-white" : "bg-white"
                 } hover:bg-blue-200 ${
                   idx !== table.getPageCount() - 1 && "border-r"
@@ -255,7 +259,7 @@ const TableContact = ({
           </div>
 
           <button
-            className="py-2 px-4 text-black rounded-r-md hover:text-blue-600"
+            className="rounded-r-md px-4 py-2 text-black hover:text-blue-600"
             onClick={() =>
               setPageIndex(Math.min(pageIndex + 1, table.getPageCount() - 1))
             }
