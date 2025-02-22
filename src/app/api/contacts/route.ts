@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 // ✅ Handle GET request to fetch all contacts
 export async function GET() {
@@ -12,7 +10,7 @@ export async function GET() {
     console.error("❌ Error fetching contacts:", error);
     return NextResponse.json(
       { success: false, message: "Error fetching contacts" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -103,7 +101,7 @@ export async function PUT(req: Request) {
     if (!contactId || isNaN(contactId)) {
       return NextResponse.json(
         { success: false, message: "Invalid or missing contact ID!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -115,7 +113,7 @@ export async function PUT(req: Request) {
     if (!existingContact) {
       return NextResponse.json(
         { success: false, message: "Contact not found!" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -131,7 +129,7 @@ export async function PUT(req: Request) {
         message: "Contact updated successfully!",
         contact: updatedContact,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("❌ Error updating contact:", error);
@@ -141,7 +139,7 @@ export async function PUT(req: Request) {
         message: "Error updating contact",
         error: String(error),
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -155,7 +153,7 @@ export async function DELETE(req: Request) {
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Missing contact ID!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -163,7 +161,7 @@ export async function DELETE(req: Request) {
     if (isNaN(contactId)) {
       return NextResponse.json(
         { success: false, message: "Invalid contact ID!" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -175,7 +173,7 @@ export async function DELETE(req: Request) {
     if (!existingContact) {
       return NextResponse.json(
         { success: false, message: "Contact not found!" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -185,13 +183,13 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json(
       { success: true, message: "Contact deleted successfully!" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("❌ Error deleting contact:", error);
     return NextResponse.json(
       { success: false, message: "Error deleting contact" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

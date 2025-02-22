@@ -15,7 +15,7 @@ model pms_contacts {
   office_number String?              @db.VarChar(20)
   company_name  String?              @db.VarChar(255)
   address       String?              @db.Text
-  status        pms_contacts_status? @default(active) 
+  status        pms_contacts_status? @default(active)
   createdAt     DateTime?            @default(now()) @db.Timestamp(0)
   updatedAt     DateTime?            @default(now()) @db.Timestamp(0)
 }
@@ -31,10 +31,18 @@ model user {
   id               Int       @id @default(autoincrement())
   email            String    @unique(map: "email")
   name             String?   @db.VarChar(255)
+  userName         String?   @unique(map: "unique_userName") @db.VarChar(255)
   password         String    @db.VarChar(255)
+  role             Int       @default(2)
+  status           Boolean   @default(true)
   resetToken       String?   @db.VarChar(255)
   resetTokenExpiry DateTime? @db.DateTime(0)
   createdAt        DateTime? @default(now()) @db.DateTime(0)
+}
+
+model pms_user_role {
+  id   Int    @id @default(autoincrement())
+  role String @db.VarChar(255)
 }
 
 enum pms_contacts_status {
