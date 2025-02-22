@@ -3,26 +3,39 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { menuItems } from "./MenuItems";
-import Image from 'next/image';
+import Image from "next/image";
 
 const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
   const pathname = usePathname();
 
   return (
     <div
-      className={`h-screen border-b border-r bg-white transition-all duration-300 text-center ${
+      className={`h-screen border-b border-r bg-white text-center transition-all duration-300 ${
         isCollapsed ? "w-20" : "w-64"
       }`}
     >
       {/* LOGO */}
       <div
-        className={`text-2xl font-bold mb-1 text-center text-primary transition-all px-2 py-2  ${isCollapsed ? "text-center" : "text-left"
-          }`}
+        className={`mb-1 px-2 py-2 text-center text-2xl font-bold text-primary transition-all ${
+          isCollapsed ? "text-center" : "text-left"
+        }`}
       >
         {isCollapsed ? (
-          <Image src="/Icon.svg" alt="Logo" width={70} height={40} className="h-24" />
+          <Image
+            src="/Icon.svg"
+            alt="Logo"
+            width={70}
+            height={40}
+            className="h-24"
+          />
         ) : (
-          <Image src="/logo-p.png" alt="Logo" width={250} height={40}  className="object-cover h-24 text-center" />
+          <Image
+            src="/logo-p.png"
+            alt="Logo"
+            width={250}
+            height={40}
+            className="h-24 object-cover text-center"
+          />
         )}
       </div>
 
@@ -41,13 +54,13 @@ const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
               <Link
                 title={item?.title}
                 href={item.href}
-                className="flex items-center justify-center gap-2"
+                className="flex items-center justify-center gap-3"
               >
                 {/* Icon */}
                 <span className="shrink-0">{item.icon}</span>
                 {/* Show title only when open */}
                 {!isCollapsed && (
-                  <span title={item?.title} className="flex-1">
+                  <span title={item?.title} className="flex-1 text-start">
                     {item?.title || "Untitled"}
                   </span>
                 )}
