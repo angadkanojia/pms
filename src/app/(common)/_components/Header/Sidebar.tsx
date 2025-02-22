@@ -32,19 +32,25 @@ const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
       <nav>
         <ul className="mt-5 space-y-3 px-3">
           {menuItems.map((item) => (
-            <li key={item.title}>
+            <li
+              key={item.title}
+              className={`group rounded-lg border border-transparent p-2 text-2xl transition duration-200 hover:border-primary hover:text-primary ${
+                pathname === item.href ? "bg-blue-100 text-primary" : ""
+              } ${isCollapsed ? "justify-center" : "justify-start"}`}
+            >
               <Link
+                title={item?.title}
                 href={item.href}
-                className={`group flex items-center rounded-lg border border-transparent p-2 text-2xl text-gray-900 transition duration-200 hover:border-blue-600 hover:text-blue-600 dark:text-white ${
-                  pathname === item.href ? "bg-blue-100 text-blue-600" : ""
-                }`}
+                className="flex items-center justify-center gap-2"
               >
                 {/* Icon */}
-                <span className="h-5 w-5 shrink-0 text-gray-500 transition duration-75 group-hover:text-blue-600 dark:text-gray-400">
-                  {item.icon}
-                </span>
-                {/* Conditionally render the title */}
-                {!isCollapsed && <span className="ms-3">{item.title}</span>}
+                <span className="shrink-0">{item.icon}</span>
+                {/* Show title only when open */}
+                {!isCollapsed && (
+                  <span title={item?.title} className="flex-1">
+                    {item?.title || "Untitled"}
+                  </span>
+                )}
               </Link>
             </li>
           ))}

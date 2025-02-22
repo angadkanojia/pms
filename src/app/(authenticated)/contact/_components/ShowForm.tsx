@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -19,14 +19,17 @@ const contactSchema = z.object({
   office_number: z.string().optional(),
   company_name: z.string().min(2, "Company name is required"),
   address: z.string().min(5, "Address is required"),
+  id: z.string().optional(), // id should be optional for new contacts
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = z.infer<typeof contactSchema> & { id?: string };
 
 const ShowForm = ({
   setShowForm,
+  contact = null, // Accept contact prop for editing (null if adding)
 }: {
   setShowForm: (value: boolean) => void;
+  contact?: ContactFormData | null; // Pass contact data if editing
 }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,27 +39,49 @@ const ShowForm = ({
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+
+  // Populate the form if contact is passed (editing)
+  useEffect(() => {
+    if (contact) {
+      setValue("name", contact.name);
+      setValue("email", contact.email);
+      setValue("mobile_number", contact.mobile_number);
+      setValue("office_number", contact.office_number || "");
+      setValue("company_name", contact.company_name);
+      setValue("address", contact.address);
+    }
+  }, [contact, setValue]);
 
   const onSubmit = async (data: ContactFormData) => {
     try {
       setSuccessMessage("");
       setErrorMessage("");
 
-      await axios.post("/api/contacts", data);
+      if (contact) {
+        // Add contact ID to the updated data
+        const updatedData = { ...data, id: contact.id };
 
-      setSuccessMessage("Contact added successfully!");
-      reset();
+        // Send PUT request with contact ID
+        await axios.put(`/api/contacts?id=${contact.id}`, updatedData);
+        setSuccessMessage("Contact updated successfully!");
+      } else {
+        // Adding a new contact
+        await axios.post("/api/contacts", data);
+        setSuccessMessage("Contact added successfully!");
+      }
 
+      reset(); // Clear form after submit
       setTimeout(() => {
-        setShowForm(false);
+        setShowForm(false); // Close the form after success message
       }, 2000);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         setErrorMessage(
-          error.response?.data?.message || "Failed to add contact",
+          error.response?.data?.message || "Failed to submit contact"
         );
       } else if (error instanceof Error) {
         setErrorMessage(error.message);
@@ -68,9 +93,9 @@ const ShowForm = ({
 
   return (
     <>
-      <div className="mb-4 flex h-16 items-center rounded-md bg-white shadow-sm">
-        <h2 className="pl-4 text-2xl font-semibold text-gray-800">
-          Add New Contact
+      <div className="shadow-sm bg-white h-16 mb-4 rounded-md flex items-center">
+        <h2 className="text-2xl font-semibold pl-4 text-gray-800">
+          {contact ? "Edit Contact" : "Add New Contact"}
         </h2>
       </div>
       <div className="flex items-center justify-center">
@@ -124,12 +149,15 @@ const ShowForm = ({
                 type="submit"
                 className="rounded-xl bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
               >
-                Add Contact
+                {contact ? "Update Contact" : "Add Contact"}
               </Button>
               <Button
                 type="button"
-                className="rounded-xl bg-gray-400 px-6 py-2 text-white hover:bg-gray-500"
-                onClick={() => setShowForm(false)}
+                className="bg-gray-400 text-white px-6 py-2 rounded-xl hover:bg-gray-500"
+                onClick={() => {
+                  reset(); // Clear form on cancel
+                  setShowForm(false); // Close form
+                }}
               >
                 Cancel
               </Button>
