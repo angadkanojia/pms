@@ -33,17 +33,20 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, section, refreshData, ac
       alert("Title is required!");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
-      if (action === "add") {
-        await axios.post("/api/section-builder", { title });
-        showToastMessage("Section added successfully!");
-      } else if (action === "edit" && section) {
-        await axios.patch("/api/section-builder", { id: section.id, title });
-        showToastMessage("Section updated successfully!");
+      const requestData = action === "edit" && section ? 
+        { id: section.id, title, action: "edit" } : 
+        { title, action: "add" };
+  
+      const response = await axios.post("/api/section-builder", requestData);
+  
+      if (response.status === 201 || response.status === 200) {
+        showToastMessage(`Section ${action === "edit" ? "updated" : "added"} successfully!`);
       }
+  
       setTitle(""); // Reset the title input
       onClose(); // Close the modal
       refreshData(); // Refresh the table
@@ -54,7 +57,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, section, refreshData, ac
       setLoading(false);
     }
   };
-
   if (!isOpen) return null;
 
   return (

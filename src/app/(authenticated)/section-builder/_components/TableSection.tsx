@@ -22,15 +22,20 @@ const TableSection: React.FC<TableSectionProps> = ({ sections, fetchSections, ha
 
   // Handle Delete Function
   const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to delete this section?")) {
-      try {
-        await axios.delete(`/api/section-builder?id=${id}`);
-        showToastMessage("Section deleted successfully!"); // Show toast on success
-        fetchSections(); // Refresh the list of sections
-      } catch (error) {
-        console.error("Error deleting section:", error);
-        alert("Failed to delete section.");
+    if (!confirm("Are you sure you want to delete this section?")) return;
+  
+    try {
+      const response = await axios.post("/api/section-builder", { id, action: "delete" });
+  
+      if (response.status === 200) {
+        showToastMessage("Section deleted successfully!");
+        fetchSections(); // Refresh the list after deletion
+      } else {
+        toast.error(response.data.message || "Failed to delete section.");
       }
+    } catch (error) {
+      console.error("Error deleting section:", error);
+      toast.error("An error occurred while deleting the section.");
     }
   };
 
