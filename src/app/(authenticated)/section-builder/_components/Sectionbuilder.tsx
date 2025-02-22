@@ -8,7 +8,10 @@ import TableSection from "./TableSection";
 const SectionBuilder: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sections, setSections] = useState<{ id: number; title: string }[]>([]);
-  const [selectedSection, setSelectedSection] = useState<{ id: number; title: string } | null>(null);
+  const [selectedSection, setSelectedSection] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
   const [modalAction, setModalAction] = useState<"add" | "edit">("add"); // Tracks whether we're adding or editing a section
 
   const fetchSections = async () => {
@@ -36,11 +39,11 @@ const SectionBuilder: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-200">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 shadow-md rounded-md py-5 px-4 bg-white">
+    <div className="bg-gray-200">
+      <div className="mb-4 flex flex-col items-center justify-between rounded-md bg-white px-4 py-5 shadow-md sm:flex-row">
         <h1 className="text-2xl font-bold">Section Builder</h1>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-0"
+          className="mt-2 rounded bg-blue-500 px-4 py-2 text-white sm:mt-0"
           onClick={handleAdd}
         >
           + Add Section
@@ -48,7 +51,11 @@ const SectionBuilder: React.FC = () => {
       </div>
 
       {/* Table Section */}
-      <TableSection sections={sections} fetchSections={fetchSections} handleEdit={handleEdit} />
+      <TableSection
+        sections={sections}
+        fetchSections={fetchSections}
+        handleEdit={handleEdit}
+      />
 
       {/* Modal Component */}
       <Modal

@@ -11,7 +11,7 @@ const User = () => {
     setsearchUser(event.target.value);
   };
   return (
-    <div className="bg-gray-200 p-4">
+    <div className="bg-gray-200">
       {!showUser ? (
         <>
           <div className="mb-4 flex flex-col items-center justify-between rounded-md bg-white px-4 py-5 shadow-md sm:flex-row">

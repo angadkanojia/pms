@@ -20,7 +20,7 @@ const Proposals = () => {
   };
 
   return (
-    <div className="bg-gray-200 p-4 min-h-screen">
+    <div className="min-h-screen bg-gray-200">
       {isCreatingProposal ? (
         <ProposalSectionForm handleCancel={handleCancelProposal} />
       ) : (

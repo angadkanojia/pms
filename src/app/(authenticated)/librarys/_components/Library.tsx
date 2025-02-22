@@ -8,7 +8,7 @@ const Library = () => {
     setSearchTerm(event.target.value);
   };
   return (
-    <div className="bg-gray-200 p-6">
+    <div className="bg-gray-200">
       <div className="flex flex-col items-center justify-between space-y-4 rounded-md bg-white px-10 py-5 shadow-md sm:flex-row sm:space-y-0">
         <h1 className="text-2xl font-bold">Library</h1>
         <div className="flex w-full flex-col items-center space-y-2 sm:w-auto sm:flex-row sm:space-x-4 sm:space-y-0">
